@@ -23,6 +23,7 @@
     }
 }
 .reserch-main {
+    position: relative;
     .serch-box {
         display: flex;
         justify-content: center;
@@ -82,11 +83,16 @@
             left: 21px;
         }
     }
-    .reserch-main-content{
-        display: flex;
-        justify-content: center;
+    .keyword-content {
+        position: absolute;
+        left: 40px;
+        top: 0;
+        margin-top: 5px;
         p {
-        text-align: center;
+            font-size: medium;
+            font-weight: bold;
+            padding-left: 40px;
+            margin: 0;
         }
         .keyword-list {
             padding: 20px;
@@ -116,5 +122,12 @@
                 }
             }
         }
+    }
+    .book-list {
+        background-color: antiquewhite;
+    }
+    .reserch-main-content{
+        display: flex;
+        justify-content: center;
     }
 }

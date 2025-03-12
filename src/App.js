@@ -48,8 +48,7 @@ function App() {
                 if(!res.ok) throw new Error(); //受け取ったレスポンスが正常ではなかったらcatchに処理が移る
                 return res.json(); //レスポンスが返ってきたら受け取ったデータをjson形式に変換する
             })
-            .then(jsonData => {setData(jsonData);console.log(jsonData);
-            })
+            .then(jsonData => setData(jsonData))
             .catch(() => alert('エラーが発生しました。'));
     };
     
@@ -66,7 +65,8 @@ function App() {
             keywordList={keywordList} 
             handleAddKeyword={handleAddKeyword} 
             handleRemoveKeyword={handleRemoveKeyword} 
-            getBooks={getBooks}
+            getBooks={getBooks} 
+            data={data}
             />
             }
         </>
