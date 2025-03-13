@@ -2,7 +2,7 @@ import React from 'react';
 import KeywordList from './KeywordList';
 import BookList from './BookList';
 
-const Reserch = ({ keyword, setKeyword, keywordList, handleAddKeyword, handleRemoveKeyword, getBooks, data }) => {
+const Reserch = ({ keyword, setKeyword, keywordList, handleAddKeyword, handleRemoveKeyword, getBooks, data, handleToggleChecked }) => {
     
     return (
         <>
@@ -14,7 +14,7 @@ const Reserch = ({ keyword, setKeyword, keywordList, handleAddKeyword, handleRem
                     </form>
                     <button className='serch-btn btn' onClick={getBooks}></button>
                 </div>
-                <div className='keyword-content'><KeywordList keywordList={keywordList} handleRemoveKeyword={handleRemoveKeyword} /></div>
+                <div className='keyword-content'><KeywordList keywordList={keywordList} handleRemoveKeyword={handleRemoveKeyword} handleToggleChecked={handleToggleChecked} /></div>
                 <BookList data={data} />
             </div>
         </>

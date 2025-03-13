@@ -10,7 +10,8 @@ function App() {
     const [keywordList, setKeywordList] = useState([]);
     const [keyword, setKeyword] = useState("");
     const [data, setData] = useState("");
-    
+    const [checkedList, setCheckedList] = useState([]);
+
 
     const reserch = () => {
         setShowReserch(true);
@@ -37,8 +38,13 @@ function App() {
         //APIに情報を渡すために入力されたキーワードを一つの文字列にする
         const keywordListCopy = [...keywordList];
         const connectedKeyword = keywordListCopy.map((item) => item.name).join(' ');
+
+        const connectedCheckedList = checkedList.join(' ');
+        console.log(connectedCheckedList);
+        
+
         //URLに日本語が含まれるのでUTF-8でエンコードする
-        const encodedUrl = encodeURI(`https://app.rakuten.co.jp/services/api/BooksBook/Search/20170404?format=json&title=${connectedKeyword}&applicationId=1072685626503950157`);
+        const encodedUrl = encodeURI(`https://app.rakuten.co.jp/services/api/BooksBook/Search/20170404?format=json&title=${connectedKeyword}&size=${connectedCheckedList}&applicationId=1072685626503950157`);
         
 
         //理解を深めるため細かくコメントアウトする
@@ -50,6 +56,18 @@ function App() {
             })
             .then(jsonData => setData(jsonData))
             .catch(() => alert('エラーが発生しました。'));
+    };
+
+    const handleToggleChecked = (e) => {
+        //オブジェクトの分割代入
+        const {name, checked} = e.target;
+
+        if(checked) {
+            setCheckedList([...checkedList, name])
+        }
+        else {
+            setCheckedList(checkedList.filter((item) => item !== name))
+        }
     };
     
     
@@ -67,6 +85,7 @@ function App() {
             handleRemoveKeyword={handleRemoveKeyword} 
             getBooks={getBooks} 
             data={data}
+            handleToggleChecked={handleToggleChecked}
             />
             }
         </>

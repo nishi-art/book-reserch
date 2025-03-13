@@ -121,6 +121,21 @@
                     cursor: pointer;
                 }
             }
+            .checkbox-content {
+                hr {
+                    margin-top: 20px;
+                }
+                p {
+                    font-size: 14px;
+                    margin-top: 10px;
+                    margin-left: 5px;
+                    padding-left: 0;
+                }
+                .checkbox-list {
+                    display: grid;
+                    grid-template-columns: repeat(3, 1fr);
+                }
+            }
         }
     }
     .book-list {
