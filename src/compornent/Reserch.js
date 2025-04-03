@@ -2,8 +2,8 @@ import React from 'react';
 import KeywordList from './KeywordList';
 import BookList from './BookList';
 
-const Reserch = ({ keyword, setKeyword, keywordList, handleAddKeyword, handleRemoveKeyword, getBooks, data, handleToggleChecked }) => {
-    
+const Reserch = ({ keyword, setKeyword, keywordList, handleAddKeyword, handleRemoveKeyword, getBooks, data, handleToggleChecked, visibleKeywordList, visibleBookList, handleSerchbtnClick }) => {
+
     return (
         <>
             <div className='reserch-main'>
@@ -12,10 +12,10 @@ const Reserch = ({ keyword, setKeyword, keywordList, handleAddKeyword, handleRem
                         <input className='serch' type="text" placeholder='キーワードを追加する' onChange={e => {setKeyword(e.target.value.trim())}} value={keyword} />
                         <button className='select-btn btn' type='submit'>+</button>
                     </form>
-                    <button className='serch-btn btn' onClick={getBooks}></button>
+                    <button className='serch-btn btn' onClick={handleSerchbtnClick}></button>
                 </div>
-                <div className='keyword-content'><KeywordList keywordList={keywordList} handleRemoveKeyword={handleRemoveKeyword} handleToggleChecked={handleToggleChecked} /></div>
-                <BookList data={data} />
+                <div className='keyword-content'><KeywordList keywordList={keywordList} handleRemoveKeyword={handleRemoveKeyword} handleToggleChecked={handleToggleChecked} visibleKeywordList={visibleKeywordList} /></div>
+                {data && visibleBookList && <BookList data={data} />}
             </div>
         </>
     )
