@@ -1,8 +1,13 @@
 import React from 'react';
+import { useEffect, useState } from 'react';
 import KeywordList from './KeywordList';
 import BookList from './BookList';
 
 const Reserch = ({ keyword, setKeyword, keywordList, handleAddKeyword, handleRemoveKeyword, getBooks, data, handleToggleChecked, visibleKeywordList, visibleBookList, handleSerchbtnClick }) => {
+    const [isHover, setIsHover] = useState(true);
+    useEffect(() => {
+        setIsHover(prevIsHover => !prevIsHover)
+    }, [visibleBookList]);
 
     return (
         <>
@@ -14,7 +19,7 @@ const Reserch = ({ keyword, setKeyword, keywordList, handleAddKeyword, handleRem
                     </form>
                     <button className='serch-btn btn' onClick={handleSerchbtnClick}></button>
                 </div>
-                <div className='keyword-content'><KeywordList keywordList={keywordList} handleRemoveKeyword={handleRemoveKeyword} handleToggleChecked={handleToggleChecked} visibleKeywordList={visibleKeywordList} /></div>
+                <div className='keyword-content'><KeywordList keywordList={keywordList} handleRemoveKeyword={handleRemoveKeyword} handleToggleChecked={handleToggleChecked} visibleKeywordList={visibleKeywordList} isHover={isHover} setIsHover={setIsHover} /></div>
                 {data && visibleBookList && <BookList data={data} />}
             </div>
         </>

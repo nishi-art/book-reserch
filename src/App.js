@@ -94,7 +94,7 @@ function App() {
             handleToggleChecked={handleToggleChecked} 
             visibleKeywordList={visibleKeywordList}
             visibleBookList={visibleBookList}
-            handleSerchbtnClick={handleSerchbtnClick}
+            handleSerchbtnClick={handleSerchbtnClick} 
             />
             }
         </>

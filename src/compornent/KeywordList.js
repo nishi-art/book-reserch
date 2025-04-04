@@ -1,26 +1,25 @@
-import React from 'react'
-import { useState } from 'react';
+import React from 'react';
+import classNames from 'classnames';
 
-const KeywordList = ({ keywordList, handleRemoveKeyword, handleToggleChecked, visibleKeywordList }) => {
-    let classname = '';
-    visibleKeywordList ? classname = 'keyword-list' : classname = 'keyword-list-none';
-
-    const [isHover, setIsHover] = useState(true);
+const KeywordList = ({ keywordList, handleRemoveKeyword, handleToggleChecked, visibleKeywordList, isHover, setIsHover }) => {
     const handleMouseEnter = () => {
         setIsHover(true);
     }
     const handleMouseLeave = () => {
         setIsHover(false);
     }
-    isHover ? classname = 'keyword-list' : classname = 'keyword-list-none';
+    const classnames = classNames({
+        'keyword-list': visibleKeywordList || isHover,
+        'keyword-list-none': !visibleKeywordList && !isHover
+    });
 
     return (
         <>
             {
             keywordList.length > 0 && 
                 <div>
-                    {visibleKeywordList ? <p className='list-title'>キーワード一覧</p> : <p className='list-title' onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>キーワード一覧</p>}
-                    <ul className={classname}>
+                    <p className='list-title' onMouseEnter={visibleKeywordList ? null : handleMouseEnter} onMouseLeave={visibleKeywordList ? null : handleMouseLeave}>キーワード一覧</p>
+                    <ul className={classnames} onMouseEnter={visibleKeywordList ? null : handleMouseEnter} > {/* 問題点 ホバーしない */}
                     {
                     keywordList.map((keyword) => 
                         <div className='keyword'  key={keyword.id}>
