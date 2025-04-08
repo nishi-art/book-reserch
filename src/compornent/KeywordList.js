@@ -19,7 +19,7 @@ const KeywordList = ({ keywordList, handleRemoveKeyword, handleToggleChecked, vi
             keywordList.length > 0 && 
                 <div>
                     <p className='list-title' onMouseEnter={visibleKeywordList ? null : handleMouseEnter} onMouseLeave={visibleKeywordList ? null : handleMouseLeave}>キーワード一覧</p>
-                    <ul className={classnames} onMouseEnter={visibleKeywordList ? null : handleMouseEnter} > {/* 問題点 ホバーしない */}
+                    <ul className={classnames} onMouseEnter={visibleKeywordList ? null : handleMouseEnter} onMouseLeave={visibleKeywordList ? null : handleMouseLeave}>
                     {
                     keywordList.map((keyword) => 
                         <div className='keyword'  key={keyword.id}>
