@@ -5,7 +5,7 @@ const Menulist = ({ reserch }) => {
         <>
             <ul className='menulist'>
                 <li onClick={reserch}>書籍を探す</li>
-                <li>お気に入り</li>
+                {/*<li>お気に入り</li>*/}
             </ul>
             <hr/>
         </>

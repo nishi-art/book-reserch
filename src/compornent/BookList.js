@@ -4,9 +4,9 @@ import { useState } from 'react';
 const BookList = ({ data }) => {
     console.log(data);
     const [isAnimating, setIsAnimating] = useState(false);
+
     const startTitleAnimation = (e) => {
         if(!isAnimating && e.target.tagName === 'P') {
-            //const bookName = e.target.querySelector('.book-name');
             e.target.animate([
                 {transform: 'translateX(100%)'},
                 {transform: 'translateX(-100%)'}],
@@ -19,13 +19,14 @@ const BookList = ({ data }) => {
         }
     }
     const stopTitleAnimation = (e) => {
-        if(isAnimating && e.target.tagName === 'P') {
-            const animations = e.target.getAnimations();
-            animations.forEach((animation) => animation.cancel());
+        if(isAnimating) {
+            const targetAnimations = e.target.tagName === 'DIV' ? e.target.querySelector('p').getAnimations() : e.target.getAnimations();
+            targetAnimations.forEach((animation) => animation.cancel());
             e.target.style.transform = 'translateX(0px)';
             setIsAnimating(false);
         }
     }
+
     return (
         <>
             <div className='book-list'>

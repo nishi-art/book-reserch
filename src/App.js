@@ -48,7 +48,7 @@ function App() {
         const checkedValue = Number(checked);
         
         //URLに日本語が含まれるのでUTF-8でエンコードする
-        const encodedUrl = encodeURI(`https://app.rakuten.co.jp/services/api/BooksBook/Search/20170404?format=json&title=${connectedKeyword}&size=${checkedValue}&hits=12&page=1&applicationId=1072685626503950157`);        
+        const encodedUrl = encodeURI(`https://app.rakuten.co.jp/services/api/BooksBook/Search/20170404?format=json&title=${connectedKeyword}&size=${checkedValue}&hits=24&page=1&applicationId=1072685626503950157`);        
 
         //理解を深めるため細かくコメントアウトする
         //fetchでリクエストを送る。返ってくるのはpromis
