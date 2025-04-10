@@ -46,19 +46,39 @@ function App() {
         const connectedKeyword = keywordListCopy.map((item) => item.name).join(' ');
         
         const checkedValue = Number(checked);
-        
-        //URLに日本語が含まれるのでUTF-8でエンコードする
-        const encodedUrl = encodeURI(`https://app.rakuten.co.jp/services/api/BooksBook/Search/20170404?format=json&title=${connectedKeyword}&size=${checkedValue}&hits=24&page=1&applicationId=1072685626503950157`);        
 
-        //理解を深めるため細かくコメントアウトする
-        //fetchでリクエストを送る。返ってくるのはpromis
-        await fetch(encodedUrl)
-            .then(res => {
-                if(!res.ok) throw new Error(); //受け取ったレスポンスが正常ではなかったらcatchに処理が移る
-                return res.json(); //レスポンスが返ってきたら受け取ったデータをjson形式に変換する
-            })
-            .then(jsonData => setData(jsonData))
-            .catch(() => alert('エラーが発生しました。'));
+        try {
+            //最初のページを取得
+            //URLに日本語が含まれるのでUTF-8でエンコードする
+            const firstPageUrl = encodeURI(`https://app.rakuten.co.jp/services/api/BooksBook/Search/20170404?format=json&title=${connectedKeyword}&size=${checkedValue}&hits=30&page=1&applicationId=1072685626503950157`);        
+            const firstResponse = await fetch(firstPageUrl);
+            if(!firstResponse.ok) throw new Error();
+            const firstData = await firstResponse.json();
+
+            //総ページ数を計算
+            const totalPages = Math.ceil(firstData.count / 30);
+
+            //残りのページを取得
+            const promises = []; //promiseの状態と完了したときに受け取るデータの配列
+            for (let page = 2; page <= totalPages;  page++) {
+                const pageUrl = encodeURI(`https://app.rakuten.co.jp/services/api/BooksBook/Search/20170404?format=json&title=${connectedKeyword}&size=${checkedValue}&hits=30&page=${page}&applicationId=1072685626503950157`);
+                promises.push(fetch(pageUrl).then(res => res.json()));
+            }
+            //全てのリクエストの完了を待ち、結果を受け取る
+            const responses = await Promise.all(promises);
+            
+            //最初のデータと残りのデータを結合
+            const allData = {
+                ...firstData,
+                Items: [
+                    ...firstData.Items,
+                    ...responses.flatMap(responses => responses.Items)
+                ]
+            };
+            setData(allData);
+        } catch (error) {
+            alert('エラーが発生しました。')
+        }
     };
 
     const handleToggleChecked = (e) => {
