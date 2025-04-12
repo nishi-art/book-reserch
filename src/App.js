@@ -6,14 +6,30 @@ import Menulist from './compornent/Menulist';
 import Reserch from './compornent/Reserch';
 
 function App() {
-    const [visibleReserch, setVisibleReserch] = useState(false);
-    const [keywordList, setKeywordList] = useState([]);
+    //初期状態を設定する又はローカルストレージからデータを取得する
+    const [visibleReserch, setVisibleReserch] = useState(() => 
+        JSON.parse(localStorage.getItem('visibleReserch')) || false);
+    const [keywordList, setKeywordList] = useState(() => 
+        JSON.parse(localStorage.getItem('keywordLIst')) || []);
+    const [data, setData] = useState(() => 
+        JSON.parse(localStorage.getItem('data')) || "");
+    const [checked, setChecked] = useState(() => 
+        JSON.parse(localStorage.getItem('checked')) || null);
+    const [visibleKeywordList, setVisibleKeywordList] = useState(() => 
+        JSON.parse(localStorage.getItem('visibleKeywordList')) || true);
+    const [visibleBookList, setVisibleBookList] = useState(() => 
+        JSON.parse(localStorage.getItem('visibleBookList')) || false);
     const [keyword, setKeyword] = useState("");
-    const [data, setData] = useState("");
-    const [checked, setChecked] = useState();
-    const [visibleKeywordList, setVisibleKeywordList] = useState(true);
-    const [visibleBookList, setVisibleBookList] = useState(false);
-
+    //状態変更時にローカルストレージにデータを保存する
+    useEffect(() => {
+        localStorage.setItem('visibleReserch', JSON.stringify(visibleReserch));
+        localStorage.setItem('keywordList', JSON.stringify(keywordList));
+        localStorage.setItem('keyword', JSON.stringify(keyword));
+        localStorage.setItem('data', JSON.stringify(data));
+        localStorage.setItem('checked', JSON.stringify(checked));
+        localStorage.setItem('visibleKeywordLIst', JSON.stringify(visibleKeywordList));
+        localStorage.setItem('visibleBookList', JSON.stringify(visibleBookList));
+    }, [visibleReserch, keywordList, keyword, data, checked, visibleKeywordList, visibleBookList]);
 
     const reserch = () => {
         setVisibleReserch(true);
@@ -109,7 +125,6 @@ function App() {
             keywordList={keywordList} 
             handleAddKeyword={handleAddKeyword} 
             handleRemoveKeyword={handleRemoveKeyword} 
-            getBooks={getBooks} 
             data={data}
             handleToggleChecked={handleToggleChecked} 
             visibleKeywordList={visibleKeywordList}

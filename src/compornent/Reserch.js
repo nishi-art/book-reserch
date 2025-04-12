@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import KeywordList from './KeywordList';
 import BookList from './BookList';
 
-const Reserch = ({ keyword, setKeyword, keywordList, handleAddKeyword, handleRemoveKeyword, getBooks, data, handleToggleChecked, visibleKeywordList, visibleBookList, handleSerchbtnClick }) => {
+const Reserch = ({ keyword, setKeyword, keywordList, handleAddKeyword, handleRemoveKeyword, data, handleToggleChecked, visibleKeywordList, visibleBookList, handleSerchbtnClick }) => {
     const [isHover, setIsHover] = useState(true);
     useEffect(() => {
         setIsHover(prevIsHover => !prevIsHover)
