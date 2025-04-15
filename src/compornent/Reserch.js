@@ -4,7 +4,12 @@ import KeywordList from './KeywordList';
 import BookList from './BookList';
 
 const Reserch = ({ keyword, setKeyword, keywordList, handleAddKeyword, handleRemoveKeyword, data, handleToggleChecked, visibleKeywordList, visibleBookList, handleSerchbtnClick }) => {
-    const [isHover, setIsHover] = useState(true);
+    const [isHover, setIsHover] = useState(() => 
+        JSON.parse(localStorage.getItem('isHover')) || true);
+    useEffect(() => {
+        localStorage.setItem('isHover', JSON.stringify(isHover));
+    }, [isHover]);
+
     useEffect(() => {
         setIsHover(prevIsHover => !prevIsHover)
     }, [visibleBookList]);

@@ -10,9 +10,9 @@ function App() {
     const [visibleReserch, setVisibleReserch] = useState(() => 
         JSON.parse(localStorage.getItem('visibleReserch')) || false);
     const [keywordList, setKeywordList] = useState(() => 
-        JSON.parse(localStorage.getItem('keywordLIst')) || []);
+        JSON.parse(localStorage.getItem('keywordList')) || []);
     const [data, setData] = useState(() => 
-        JSON.parse(localStorage.getItem('data')) || "");
+        JSON.parse(localStorage.getItem('data')) || {});
     const [checked, setChecked] = useState(() => 
         JSON.parse(localStorage.getItem('checked')) || null);
     const [visibleKeywordList, setVisibleKeywordList] = useState(() => 
@@ -27,7 +27,7 @@ function App() {
         localStorage.setItem('keyword', JSON.stringify(keyword));
         localStorage.setItem('data', JSON.stringify(data));
         localStorage.setItem('checked', JSON.stringify(checked));
-        localStorage.setItem('visibleKeywordLIst', JSON.stringify(visibleKeywordList));
+        localStorage.setItem('visibleKeywordList', JSON.stringify(visibleKeywordList));
         localStorage.setItem('visibleBookList', JSON.stringify(visibleBookList));
     }, [visibleReserch, keywordList, keyword, data, checked, visibleKeywordList, visibleBookList]);
 
@@ -102,16 +102,11 @@ function App() {
         setChecked(value);
     };
 
-    const handleSerchbtnClick = () => {
+    const handleSerchbtnClick = async() => {
+        await getBooks();
         setVisibleBookList(true);
         setVisibleKeywordList(false);
-        getBooks();
     }
-    useEffect(() => {
-        console.log('KeywordList:',visibleKeywordList);
-        console.log('BookList',visibleBookList);
-    }, [visibleKeywordList, visibleBookList])
-    
     
     return (
         <>
