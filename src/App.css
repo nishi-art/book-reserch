@@ -32,7 +32,7 @@
         justify-content: center;
         .form {
             display: flex;
-            z-index: 100;
+            z-index: 150;
         }
         .serch {
             -webkit-appearance: none;
@@ -64,7 +64,7 @@
         .serch-btn {
             position: relative;
             background-color: #f7e302;
-            z-index: 100;
+            z-index: 150;
         }
         .serch-btn::before {
             content: '';
