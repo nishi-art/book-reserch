@@ -8,17 +8,17 @@ import Reserch from './compornent/Reserch';
 function App() {
     //初期状態を設定する又はローカルストレージからデータを取得する
     const [visibleReserch, setVisibleReserch] = useState(() => 
-        JSON.parse(localStorage.getItem('visibleReserch')) || false);
+        JSON.parse(localStorage.getItem('visibleReserch')) ?? false);
     const [keywordList, setKeywordList] = useState(() => 
         JSON.parse(localStorage.getItem('keywordList')) || []);
     const [data, setData] = useState(() => 
         JSON.parse(localStorage.getItem('data')) || {});
     const [checked, setChecked] = useState(() => 
-        JSON.parse(localStorage.getItem('checked')) || null);
+        JSON.parse(localStorage.getItem('checked')) || '0');
     const [visibleKeywordList, setVisibleKeywordList] = useState(() => 
-        JSON.parse(localStorage.getItem('visibleKeywordList')) || true);
+        JSON.parse(localStorage.getItem('visibleKeywordList')) ?? true);
     const [visibleBookList, setVisibleBookList] = useState(() => 
-        JSON.parse(localStorage.getItem('visibleBookList')) || false);
+        JSON.parse(localStorage.getItem('visibleBookList')) ?? false);
     const [keyword, setKeyword] = useState("");
     //状態変更時にローカルストレージにデータを保存する
     useEffect(() => {
@@ -31,12 +31,14 @@ function App() {
         localStorage.setItem('visibleBookList', JSON.stringify(visibleBookList));
     }, [visibleReserch, keywordList, keyword, data, checked, visibleKeywordList, visibleBookList]);
 
+    //Reserchコンポーネントの表示（準備）
     const reserch = () => {
         setVisibleReserch(true);
     };
 
+    //キーワードの追加
     const handleAddKeyword = (e) => {
-        e.preventDefault();
+        e.preventDefault(); //文字入力のたびに再レンダリングするのを防ぐ
         
         keyword !== '' && //inputフィールドが空の時はkeywordを更新したくないため
         setKeywordList((prevKeywordList) => {
@@ -49,6 +51,7 @@ function App() {
         setVisibleBookList(false);
         
     };
+    //キーワードの削除削除
     const handleRemoveKeyword = (keywordId) => {
         setKeywordList((prevKeywordList) => {
             const newKeywordList = prevKeywordList.filter((item) => item.id !== keywordId);
@@ -56,6 +59,7 @@ function App() {
         });
     };
 
+    //書籍情報の取得
     const getBooks = async(e) => {
         //APIに情報を渡すために入力されたキーワードを一つの文字列にする
         const keywordListCopy = [...keywordList];
@@ -97,11 +101,13 @@ function App() {
         }
     };
 
+    //checkedの状態の更新（APIリクエストの際に用いる）
     const handleToggleChecked = (e) => {
-        const {value} = e.target
-        setChecked(value);
+        const selectedValue = e.target.value
+        setChecked(selectedValue);
     };
 
+    //書籍情報の取得と取得後のコンポーネントの表示（準備）
     const handleSerchbtnClick = async() => {
         await getBooks();
         setVisibleBookList(true);
@@ -120,7 +126,8 @@ function App() {
             keywordList={keywordList} 
             handleAddKeyword={handleAddKeyword} 
             handleRemoveKeyword={handleRemoveKeyword} 
-            data={data}
+            data={data} 
+            checked={checked} 
             handleToggleChecked={handleToggleChecked} 
             visibleKeywordList={visibleKeywordList}
             visibleBookList={visibleBookList}

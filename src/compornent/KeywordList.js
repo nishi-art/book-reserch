@@ -1,7 +1,8 @@
 import React from 'react';
 import classNames from 'classnames';
 
-const KeywordList = ({ keywordList, handleRemoveKeyword, handleToggleChecked, visibleKeywordList, isHover, setIsHover }) => {
+const KeywordList = ({ keywordList, checked, handleRemoveKeyword, handleToggleChecked, visibleKeywordList, isHover, setIsHover }) => {
+    //マウスホバー時のulの表示切替
     const handleMouseEnter = () => {
         setIsHover(true);
     }
@@ -32,37 +33,37 @@ const KeywordList = ({ keywordList, handleRemoveKeyword, handleToggleChecked, vi
                             <p>ジャンルを選択するとより絞り込めます</p>
                             <div className='checkbox-list'>
                                 <div>
-                                    <label><input type="radio" name='genre' value='0' onChange={handleToggleChecked} />全て</label>
+                                    <label><input type="radio" name='genre' value='0' onChange={handleToggleChecked} checked={checked === '0'} />全て</label>
                                 </div>
                                 <div>
-                                    <label><input type="radio" name='genre' value='9' onChange={handleToggleChecked} />コミック</label>
+                                    <label><input type="radio" name='genre' value='9' onChange={handleToggleChecked} checked={checked === '9'} />コミック</label>
                                 </div>
                                 <div>
-                                    <label><input type="radio" name='genre' value='1' onChange={handleToggleChecked} />単行本</label>
+                                    <label><input type="radio" name='genre' value='1' onChange={handleToggleChecked} checked={checked === '1'} />単行本</label>
                                 </div>
                                 <div>
-                                    <label><input type="radio" name='genre' value='2' onChange={handleToggleChecked} />文庫</label>
+                                    <label><input type="radio" name='genre' value='2' onChange={handleToggleChecked} checked={checked === '2'} />文庫</label>
                                 </div>
                                 <div>
-                                    <label><input type="radio" name='genre' value='3' onChange={handleToggleChecked} />新書</label>
+                                    <label><input type="radio" name='genre' value='3' onChange={handleToggleChecked} checked={checked === '3'} />新書</label>
                                 </div>
                                 <div>
-                                    <label><input type="radio" name='genre' value='4' onChange={handleToggleChecked} />全集・双書</label>
+                                    <label><input type="radio" name='genre' value='4' onChange={handleToggleChecked} checked={checked === '4'} />全集・双書</label>
                                 </div>
                                 <div>
-                                    <label><input type="radio" name='genre' value='5' onChange={handleToggleChecked} />事・辞典</label>
+                                    <label><input type="radio" name='genre' value='5' onChange={handleToggleChecked} checked={checked === '5'} />事・辞典</label>
                                 </div>
                                 <div>
-                                    <label><input type="radio" name='genre' value='6' onChange={handleToggleChecked} />図鑑</label>
+                                    <label><input type="radio" name='genre' value='6' onChange={handleToggleChecked} checked={checked === '6'} />図鑑</label>
                                 </div>
                                 <div>
-                                    <label><input type="radio" name='genre' value='7' onChange={handleToggleChecked} />絵本</label>
+                                    <label><input type="radio" name='genre' value='7' onChange={handleToggleChecked} checked={checked === '7'} />絵本</label>
                                 </div>
                                 <div>
-                                    <label><input type="radio" name='genre' value='8' onChange={handleToggleChecked} />カセット、CDなど</label>
+                                    <label><input type="radio" name='genre' value='8' onChange={handleToggleChecked} checked={checked === '8'} />カセット、CDなど</label>
                                 </div>
                                 <div>
-                                    <label><input type="radio" name='genre' value='10' onChange={handleToggleChecked} />ムック、その他</label>
+                                    <label><input type="radio" name='genre' value='10' onChange={handleToggleChecked} checked={checked === '10'} />ムック、その他</label>
                                 </div>
                             </div>
                         </div>

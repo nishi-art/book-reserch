@@ -1,14 +1,10 @@
 import React, { useState, useEffect } from 'react'
 
 const BookList = ({ data }) => {
-
-    /*useEffect(() => {
-        console.log(data);
-    });*/
-
     const [isAnimating, setIsAnimating] = useState(() => 
-        JSON.parse(localStorage.getItem('isAnimating')) || false);
+        JSON.parse(localStorage.getItem('isAnimating')) ?? false);
     useEffect(() => {localStorage.setItem('isAnimating', JSON.stringify(isAnimating))}, [isAnimating]);
+
     //書籍タイトルのアニメーション開始
     const startTitleAnimation = (e) => {
         if(!isAnimating && e.target.tagName === 'P') {
@@ -33,30 +29,24 @@ const BookList = ({ data }) => {
         }
     };
 
-    //ローカルストレージから（に）データを取得する・データを保存する
     const [currentPage, setCurrentPage] = useState(() => 
         JSON.parse(localStorage.getItem('currentPage')) || 1);
     useEffect(() => {
         localStorage.setItem('currentPage', JSON.stringify(currentPage))
     }, [currentPage]);
 
+    //１ページ当たりの書籍表示数
     const itemsPerPage = 24;
-    
+    //総ページ数の計算
     const totalPages = Math.ceil(data.count / itemsPerPage);
     //現在のページに表示するアイテムの取得
     const currentPageItems = () => {
-        const seen = new Set();
-        const see = new Set();
         const startIndex = (currentPage - 1) * itemsPerPage;
         const endIndex = startIndex + itemsPerPage;
         const pageItems = data.Items.slice(startIndex, endIndex);
-        /*const filteredItems = pageItems.filter(pageItem => {
-            const key = JSON.stringify(pageItem);
-            return seen.has(key) ? see.add(key) : seen.add(key);
-        });*/
         return pageItems;
     };
-
+    //ページの切り替え
     const handlePageChange = (pageNumber) => {
         setCurrentPage(pageNumber)
     };

@@ -3,13 +3,14 @@ import { useEffect, useState } from 'react';
 import KeywordList from './KeywordList';
 import BookList from './BookList';
 
-const Reserch = ({ keyword, setKeyword, keywordList, handleAddKeyword, handleRemoveKeyword, data, handleToggleChecked, visibleKeywordList, visibleBookList, handleSerchbtnClick }) => {
+const Reserch = ({ keyword, setKeyword, keywordList, handleAddKeyword, handleRemoveKeyword, data, checked, handleToggleChecked, visibleKeywordList, visibleBookList, handleSerchbtnClick }) => {
     const [isHover, setIsHover] = useState(() => 
-        JSON.parse(localStorage.getItem('isHover')) || true);
+        JSON.parse(localStorage.getItem('isHover')) ?? true);
     useEffect(() => {
         localStorage.setItem('isHover', JSON.stringify(isHover));
     }, [isHover]);
 
+    //IshoverはKeywordList.jsのulタグの表示、非表示に使うため下記ではBookListとulが同時に表示されることを防いでいる
     useEffect(() => {
         setIsHover(prevIsHover => !prevIsHover)
     }, [visibleBookList]);
@@ -24,7 +25,7 @@ const Reserch = ({ keyword, setKeyword, keywordList, handleAddKeyword, handleRem
                     </form>
                     <button className='serch-btn btn' onClick={handleSerchbtnClick}></button>
                 </div>
-                <div className='keyword-content'><KeywordList keywordList={keywordList} handleRemoveKeyword={handleRemoveKeyword} handleToggleChecked={handleToggleChecked} visibleKeywordList={visibleKeywordList} isHover={isHover} setIsHover={setIsHover} /></div>
+                <div className='keyword-content'><KeywordList keywordList={keywordList} checked={checked} handleRemoveKeyword={handleRemoveKeyword} handleToggleChecked={handleToggleChecked} visibleKeywordList={visibleKeywordList} isHover={isHover} setIsHover={setIsHover} /></div>
                 {data && visibleBookList && <BookList data={data} />}
             </div>
         </>
